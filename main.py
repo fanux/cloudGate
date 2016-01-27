@@ -10,23 +10,27 @@ from tornado.options import define, options
 import tornado.web
 import tornado.log
 
+from config import PORT
+
 
 sys.path.append(os.path.abspath(".."))
 
 from url import *
-from config import CONFIG
 
-define("port", default=CONFIG.TORNADO.PORT, help="run on the given port", type=int)
-
-options.log_file_prefix = os.path.join(CONFIG.LOGGER.OUTPUT_DIRECTORY, 'mmx.log')
-options.log_file_max_size = 1048576
-options.log_file_num_backups = 10
+define("port", default=PORT, help="run on the given port", type=int)
 
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = URL_SETTINGS
-        settings = CONFIG.TORNADO.SETTINGS
+
+        settings = dict(
+            template_path=os.path.join(os.path.dirname(__file__), "templates/"),
+            static_path=os.path.join(os.path.dirname(__file__), "static/"),
+            debug=True,
+            cookie_secret="13skss9845fui2345hsz846fdah848",
+            login_url="/login",)
+        
         tornado.web.Application.__init__(self, handlers, **settings)
 
 

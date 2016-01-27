@@ -1,8 +1,5 @@
 import tornado.web
 
-from forward.common.error import *
-
-
 class HttpBaseHandler(tornado.web.RequestHandler):
     def __init__(self, application, request, **kwargs):
         super(HttpBaseHandler, self).__init__(application, request, **kwargs)
@@ -25,10 +22,3 @@ class HttpBaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         id = self.get_secure_cookie("id")
         return id
-
-
-class LoginBaseHandler(HttpBaseHandler):
-    def get(self):
-        next = self.get_argument("next", "/login")
-
-        self.write({"code": FD_ERR_UNLOGIN, "next": next})
