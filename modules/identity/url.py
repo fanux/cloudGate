@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-from identity import *
+from handlers import *
 
-identity_urls = [
+urls = [
     (r"/", IdentityBaseHandler),
 ]

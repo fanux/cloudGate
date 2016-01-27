@@ -12,7 +12,6 @@ import tornado.log
 
 from config import PORT
 
-
 sys.path.append(os.path.abspath(".."))
 
 from url import *
