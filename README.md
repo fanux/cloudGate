@@ -78,14 +78,49 @@ and support lower version api.
 ##A sample develop example
 ###Control aliyun ECS reboot
 ####Horzion request API
-TODO
+[the reboot api](http://developer.openstack.org/api-ref-compute-v2.1.html#reboot)
+As we can see, the request url is:`/v2.1/{tenant_id}/servers/{server_id}/action` method is POST.
 ####Add url in compute/url.py
-TODO
+```python
+urls_v2_1 = [
+    (r"/v2.1/(.*)/servers/(.*)/action", ServerActionHandler),
+]
+
+#if we support other version api, use urls = urls_v2_1 + urls_other_version
+urls = urls_v2_1
+```
 ####Add handler in compute/handlers.py
-TODO
+```python
+class ComputeBaseHandler(HttpBaseHandler):
+    p = ComputeProcessorFac()
+
+class ServerActionHandler(ComputeBaseHandler):
+    def post(self, tenat_id, server_id):
+        #call process_base functions
+        action = "reboot"
+        p.ServerAction(tenat_id, server_id, action)
+```
 ####Add base processor in compute/process_base.py
-TODO
+```python
+class ComputeProcessorBase():
+    #define interface of server action
+    def ServerAction(self, tenat_id, server_id, action):
+        #do nothing juest define interface
+        pass
+```
 ####Add processor in compute/aliyun/processor.py
-TODO
+```python
+class AliyunComputeProcessor(ComputeProcessorBase):
+    def ServerAction(self, tenat_id, server_id, action):
+        #TODO a real action to aliyun server
+        pass
+```
 ####Edit factory in compute/api_factory.py
-TODO
+```python
+class ComputeProcessorFac():
+    processor = "aliyun"
+
+    def __init__(self):
+        if processor == "aliyun":
+            return AliyunComputeProcessor()
+```

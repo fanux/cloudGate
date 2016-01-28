@@ -1,14 +1,13 @@
 from tornado.gen import coroutine
 from cloudGate.httpbase import HttpBaseHandler
 
-class Test(HttpBaseHandler):   
-    pass
+class ComputeBaseHandler(HttpBaseHandler):
+    #the ProcessorFac return the real processor.
+    p = ComputeProcessorFac()
 
-class Client(Test):
-    def get(self):
-        pass
-
-    @coroutine
-    def post(self):
-        pass
+class ServerActionHandler(ComputeBaseHandler):
+    def post(self, tenat_id, server_id):
+        #call process_base functions
+        action = "reboot"
+        p.ServerAction(tenat_id, server_id, action)
 
