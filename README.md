@@ -75,6 +75,18 @@ cloudGate define a switch for all modules, if value is 0 cloudGate will not init
 we can define different version handler in url.py, and config witch version is current. 
 and support lower version api. 
 
+##UML
+```
+    +--------------+        +-------------------+        +-----------------+
+    | http handler |<>----->| Processor Factory |------->| Processor Base  |
+    +--------------+        +-------------------+        +-----------------+
+    | +get()       |                                              ^ 
+    | +post()      |                                  ____________|___________  
+    | ...          |                             +---|----+   +---|----+      |
+    +--------------+                             | aliyun |   | Amazon |     ...
+                                                 +--------+   +--------+
+```
+
 ##A sample develop example
 ###Control aliyun ECS reboot
 ####Horzion request API
