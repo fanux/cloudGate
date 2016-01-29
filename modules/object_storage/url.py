@@ -1,5 +1,8 @@
 from handlers import *
+from cloudGate.common.define import OBJECT_STORAGE_BASE_URL
 
 urls = [
-    (r"/test/client", Client),
+    (OBJECT_STORAGE_BASE_URL, ObjectStorageBaseHandler),
+    (OBJECT_STORAGE_BASE_URL + r"/v1/(.*)/(.*)", ContainerHandler), 
+    (OBJECT_STORAGE_BASE_URL + r"/v1/(.*)/(.*)/(.*)", ObjectHandler),
 ]
