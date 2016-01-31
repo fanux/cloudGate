@@ -1,4 +1,5 @@
 import tornado.web
+import json
 
 class HttpBaseHandler(tornado.web.RequestHandler):
     def __init__(self, application, request, **kwargs):
@@ -22,3 +23,7 @@ class HttpBaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         id = self.get_secure_cookie("id")
         return id
+
+    def send_json(self, resp):
+        self.set_header("content-type":"application/json")
+        self.write(json.dumps(resp))

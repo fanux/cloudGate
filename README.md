@@ -87,7 +87,7 @@ and support lower version api.
                                                  +--------+   +--------+
 ```
 
-##A sample develop example
+##A simple develop example
 ###Control aliyun ECS reboot
 ####Horzion request API
 [the reboot api](http://developer.openstack.org/api-ref-compute-v2.1.html#reboot)
@@ -107,23 +107,23 @@ class ComputeBaseHandler(HttpBaseHandler):
     p = ComputeProcessorFac()
 
 class ServerActionHandler(ComputeBaseHandler):
-    def post(self, tenat_id, server_id):
+    def post(self, tenant_id, server_id):
         #call process_base functions
         action = "reboot"
-        p.ServerAction(tenat_id, server_id, action)
+        p.ServerAction(tenant_id, server_id, action)
 ```
 ####Add base processor in compute/process_base.py
 ```python
 class ComputeProcessorBase():
     #define interface of server action
-    def ServerAction(self, tenat_id, server_id, action):
+    def ServerAction(self, tenant_id, server_id, action):
         #do nothing juest define interface
         pass
 ```
 ####Add processor in compute/aliyun/processor.py
 ```python
 class AliyunComputeProcessor(ComputeProcessorBase):
-    def ServerAction(self, tenat_id, server_id, action):
+    def ServerAction(self, tenant_id, server_id, action):
         #TODO a real action to aliyun server
         pass
 ```

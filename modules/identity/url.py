@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from handlers import *
+from cloudGate.common.define import IDENTITY_BASE_URL
 
 urls = [
     (IDENTITY_BASE_URL + r"/", IdentityBaseHandler),
